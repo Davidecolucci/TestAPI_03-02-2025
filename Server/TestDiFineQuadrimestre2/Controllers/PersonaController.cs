@@ -43,7 +43,7 @@ public class PersonaController : ControllerBase
 
     // PUT api/<PersonaController>/5
     [HttpPut("{id}")]
-    public IActionResult AggiornaPersona(Guid id, [FromBody] Persona personaAggiornata)
+    public IActionResult PutAggiornaPersona(Guid id, [FromBody] Persona personaAggiornata)
     {
         // Cerchiamo la persona per ID
         var personaDaAggiornare = ListaPersone.FirstOrDefault(p => p.Id == id);
@@ -58,8 +58,6 @@ public class PersonaController : ControllerBase
         personaDaAggiornare.Cognome = personaAggiornata.Cognome;
         personaDaAggiornare.DataDiNascita = personaAggiornata.DataDiNascita;
         personaDaAggiornare.Email = personaAggiornata.Email;
-
-        ListaPersone.Add(personaDaAggiornare);
 
         return Ok("Persona aggiornata con successo");
     }
