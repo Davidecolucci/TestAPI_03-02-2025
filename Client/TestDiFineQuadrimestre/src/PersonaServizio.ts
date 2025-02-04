@@ -1,5 +1,5 @@
 import { Persona } from './Persona';
-class PersonaServizio {
+export class PersonaServizio {
     
     async CreaPersona(persona: Persona) {
         const risposta = await fetch(`http://localhost:7272/api/persone`, {

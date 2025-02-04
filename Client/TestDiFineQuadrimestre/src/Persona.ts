@@ -1,7 +1,7 @@
 export enum Dominio {
     Studente = "studente",
     Docente = "docente"
-}
+} 
 
 export abstract class Persona{
     public abstract specializzazione : Dominio;
