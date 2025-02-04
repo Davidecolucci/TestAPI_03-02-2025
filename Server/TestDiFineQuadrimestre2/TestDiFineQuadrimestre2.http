@@ -1,0 +1,6 @@
+@TestDiFineQuadrimestre2_HostAddress = http://localhost:5127
+
+GET {{TestDiFineQuadrimestre2_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
