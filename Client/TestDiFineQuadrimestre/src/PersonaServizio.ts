@@ -16,7 +16,7 @@ class PersonaServizio {
         if (!risposta.ok) {
             throw new Error(`Errore durante la ricerca delle persone: ${risposta.statusText}`);
         }
-        return await risposta.json();    
+        return await risposta.json();     
     }
 
     async GetPersonaById(id: number) {
