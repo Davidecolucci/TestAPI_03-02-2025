@@ -9,7 +9,7 @@ export abstract class Persona{
     constructor( public id : number, public nome : string, public cognome : string, public dataDiNascita : Date){}
     
     get email() {
-        return (`${this.nome.charAt(0).toLowerCase()}${this.cognome.toLowerCase()}@${Dominio}.com`);
+        return `${this.nome.charAt(0).toLowerCase()}${this.cognome.toLowerCase()}@${this.specializzazione}.com`;
     }
 
     CalcolaEta() {

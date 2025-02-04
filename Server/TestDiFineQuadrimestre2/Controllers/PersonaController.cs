@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using TestDiFineQuadrimestre2.Dto;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,7 +11,28 @@ namespace TestDiFineQuadrimestre2.Controllers;
 public class PersonaController : ControllerBase
 {
 
-    List<Persona> ListaPersone = new List<Persona>();
+    private readonly string filePath = "persone.json";
+    private List<Persona> ListaPersone = new List<Persona>();
+
+    public PersonaController()
+    {
+        CaricaPersoneDalFile();
+    }
+
+    public void CaricaPersoneDalFile()
+    {
+        if (System.IO.File.Exists(filePath))
+        {
+            var json = System.IO.File.ReadAllText(filePath);
+            ListaPersone = JsonSerializer.Deserialize<List<Persona>>(json) ?? new List<Persona>();
+        }
+    }
+
+    private void SalvaPersoneSuFile()
+    {
+        var json = JsonSerializer.Serialize(ListaPersone, new JsonSerializerOptions { WriteIndented = true });
+        System.IO.File.WriteAllText(filePath, json);
+    }
 
 
     // GET: api/<PersonaController>
@@ -38,6 +60,7 @@ public class PersonaController : ControllerBase
     public bool PostCreaPersona(Persona persona)
     {
         ListaPersone.Add(persona);
+        SalvaPersoneSuFile();
         return true;
     }
 
@@ -59,6 +82,8 @@ public class PersonaController : ControllerBase
         personaDaAggiornare.DataDiNascita = personaAggiornata.DataDiNascita;
         personaDaAggiornare.Email = personaAggiornata.Email;
 
+        SalvaPersoneSuFile();
+
         return Ok("Persona aggiornata con successo");
     }
 
@@ -75,6 +100,8 @@ public class PersonaController : ControllerBase
         }
 
         ListaPersone.Remove(personaDaEliminare);
+
+        SalvaPersoneSuFile();
 
         return Ok("Persona eliminata con successo");
     }
